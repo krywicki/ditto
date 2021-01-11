@@ -1,16 +1,17 @@
 extern crate ditto;
 
-use ditto::Torrent;
-
+use ditto::torrent;
 
 fn main() {
-
-    match Torrent::from_file("this is a torrent") {
-        Ok(_) => {
-            println!("opened torrent file");
+    match torrent::Torrent::from_file("soul.torrent") {
+        Ok(ref t) => {
+            println!("{}", t);
         },
         Err(ref e) => {
-            println!("Error - {}", e.msg);
+            match e.kind {
+                torrent::ErrorKind::DecodeFailure => println!("Bencode Failure - {}", e.msg),
+                torrent::ErrorKind::IOError => println!("IO Error - {}", e.msg)
+            }
         }
     }
 }

@@ -1,6 +1,6 @@
 #[macro_use]
 extern crate serde;
 
-mod torrent;
-
+pub mod helpers;
+pub mod torrent;
 pub use torrent::Torrent;
